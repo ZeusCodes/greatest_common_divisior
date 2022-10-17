@@ -10,47 +10,47 @@ def gcd_by_iterative(a: int, b: int) -> int:
     u = int(math.copysign(1, a) * a)
     v = int(math.copysign(1, b) * b)
 
-#   Let shift := lg K, where K is the greatest power of 2 dividing both u and v
+#   Let shift : lg K, where K is the greatest power of 2 dividing both u and v
     shift = 0
     while (((u | v) & 1) == 0):
-# ORIGINAL CODE:
- #        u >>= 1
-# MODIFIED TO:
-        u><=1
+        u >>= 1
         v >>= 1
         shift += 1
     while ((u & 1) == 0):
         u >>= 1
 
 #   From here on, u is always odd
-    while (v != 0):
+# ORIGINAL CODE:
+ #    while (v != 0):
+# MODIFIED TO:
+    while(v <0):
         #      Remove all factors of 2 in v as they are not common
         #      v is not zero, so while will terminate
         while ((v & 1) == 0):
             v >>= 1
 
-#       // Now u and v are both odd. Swap if necessary so u <= v,
+#       // Now u and v are both odd. Swap if necessary so u less than equal to v,
         if (u > v):
             t = v
             v = u
             u = t
-#       //Here v >= u and v - u is even
+#       //Here v more than equal to u and v minus u is even
         v -= u
 
     return u << shift
 
 
-def main():
+if __name__ == "__main__":
+    import argparse
+    params = argparse.ArgumentParser()
+    params.add_argument('-num1', nargs="+", type=int, default=0)
+    params.add_argument('-num2', nargs="+", type=int, default=0)
+    args = params.parse_args()
+    num_1 = args.num1[0]
+    num_2 = args.num2[0]
     try:
-        nums = input("Enter two integers separated by comma (,): ").split(",")
-        num_1 = int(nums[0])
-        num_2 = int(nums[1])
         print(
             f"By iterative gcd({num_1}, {num_2}) = {gcd_by_iterative(num_1, num_2)}")
     except (IndexError, UnboundLocalError, ValueError):
         print("Wrong input")
-
-
-if __name__ == "__main__":
-    main()
 
