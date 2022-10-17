@@ -20,10 +20,7 @@ def gcd_by_iterative(a: int, b: int) -> int:
         u >>= 1
 
 #   From here on, u is always odd
-# ORIGINAL CODE:
- #    while (v != 0):
-# MODIFIED TO:
-    while(v <0):
+    while (v != 0):
         #      Remove all factors of 2 in v as they are not common
         #      v is not zero, so while will terminate
         while ((v & 1) == 0):
@@ -32,7 +29,10 @@ def gcd_by_iterative(a: int, b: int) -> int:
 #       // Now u and v are both odd. Swap if necessary so u less than equal to v,
         if (u > v):
             t = v
-            v = u
+            # ORIGINAL CODE:
+            # v = u
+            # MODIFIED TO:
+            v = t
             u = t
 #       //Here v more than equal to u and v minus u is even
         v -= u
@@ -53,4 +53,3 @@ if __name__ == "__main__":
             f"By iterative gcd({num_1}, {num_2}) = {gcd_by_iterative(num_1, num_2)}")
     except (IndexError, UnboundLocalError, ValueError):
         print("Wrong input")
-
